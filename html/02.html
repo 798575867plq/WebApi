@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>排他功能</title>
+
+  <style>
+    .hide{
+      display: none;
+    }
+
+    .black{
+      background-color: black;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="h1">
+    <input type="button" value="哈哈哈" />
+    <input type="button" value="哈哈哈" />
+    <input type="button" value="哈哈哈" />
+    <input type="button" value="哈哈哈" />
+    <input type="button" value="哈哈哈" />
+  </div>
+
+  <div>
+    <a href="images/2.jpg" id="i1"><img src="images/1.jpg" alt="" id="i2" /></a>
+  </div>
+
+  <div>
+    <input type="button" value="修改性别" id="j1">
+    <input type="radio" name="sex" value="1">男
+    <input type="radio" name="sex" value="2" id="j2">女
+    <input type="radio" name="sex" value="3">保密
+  </div>
+
+  <div>
+    <input type="button" value="修改兴趣" id="k1">
+    <input type="checkbox" name="interest" value="1">看电影
+    <input type="checkbox" name="interest" value="2" id="k2">追剧
+    <input type="checkbox" name="interest" value="3">做饭
+    <input type="checkbox" name="interest" value="4">听歌
+    <input type="checkbox" name="interest" value="5" id="k3">吃饭
+  </div>
+
+  <div>
+    <input type="button" value="修改菜名" id="l1">
+    <select>
+      <option value="">1111111</option>
+      <option value="" id="l2">2222222</option>
+      <option value="">3333333</option>
+      <option value="">4444444</option>
+      <option value="">5555555</option>
+    </select>
+  </div>
+
+  <div>
+    <textarea name="" id="m1" cols="30" rows="10" readonly>哈哈哈哈哈哈哈哈哈哈或或或或或啦啦啦啦啦啦啦啦啦啦了绿绿绿绿绿</textarea>
+    <input type="button" value="改变文本域的文字" id="m2">
+  </div>
+
+  <div>
+    <div id="n1" style="width:100px; height:100px; background-color: cornflowerblue;"></div>
+    <input type="button" value="设置背景颜色" id="n2">
+    <input type="button" value="隐藏" id="n3">
+    <input type="button" value="隐藏" id="n4">
+  </div>
+
+  <div>
+    <input type="button" value="开/关灯" id="o1">
+  </div>
+  <script>
+    // 排他功能
+    var btnObjs = document.getElementById("h1").getElementsByTagName("input");
+    for (var i = 0; i < btnObjs.length; i++) {
+      btnObjs[i].onclick = function () {
+        for (var j = 0; j < btnObjs.length; j++) {
+          btnObjs[j].value = "哈哈哈";
+        }
+        this.value = "嘻嘻嘻嘻嘻";
+      };
+    }
+
+    // 点击小图显示大图
+    document.getElementById("i2").onclick = function () {
+      this.src = document.getElementById("i1").href;
+      return false;
+    };
+
+    // 修改性别(单选)
+    function my$(id) {
+      return document.getElementById(id);
+    }
+    my$("j1").onclick = function () {
+      my$("j2").checked = true;
+    };
+
+    // 修改兴趣（多选）
+    my$("k1").onclick = function () {
+      my$("k2").checked = true;
+      my$("k3").checked = true;
+    };
+
+    // 修改菜名（下拉）
+    my$("l1").onclick = function () {
+      my$("l2").selected = true;
+    };
+
+    // 修改文本域(textarea)
+    my$("m2").onclick = function () {
+      my$("m1").value = "呜呜呜呜呜呜呜呜无无无无无无无无无无无无无无无无无无无无无无无无无无无无无无无无无无无无无";
+    };
+
+    //设置背景颜色 
+    my$("n2").onclick = function () {
+      my$("n1").style.width = "300px";
+      my$("n1").style.height = "200px";
+      my$("n1").style.backgroundColor = "blue"; //css中属性是多单词的时候，在js中DOM操作的时候把-去掉后面的单词首字母大写即可
+    };
+
+    //隐藏/显示div
+    my$("n3").onclick = function () {
+      if (this.value == "隐藏") {
+        my$("n1").style.display = "none";
+        this.value = "显示";
+      } else if (this.value == "显示") {
+        my$("n1").style.display = "block";
+        this.value = "隐藏";
+      }
+    };
+
+    //类样式的方式隐藏/显示div
+    my$("n4").onclick = function () {
+      if (my$("n1").className != "hide") {
+        my$("n1").className = "hide";
+        this.value = "显示";
+      } else {
+        my$("n1").className = "";
+        this.value = "隐藏";
+      }
+    };
+
+    //网页开关灯
+    my$("o1").onclick = function () {
+      document.body.className = document.body.className != "black" ? "black" : "";
+    };
+  </script>
+</body>
+
+</html>

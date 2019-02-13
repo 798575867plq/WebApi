@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <style>
+    .photo{
+      list-style: none;
+      display: flex; 
+      padding:0px;
+    }
+
+    .photo li{
+      margin-right: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <input type="button" id="a1" value="禁用文本框">
+    <input type="text" id="a2">
+  </div>
+
+  <div>
+    <input type="button" value="改变列表的背景颜色" id="b1">
+    <ul id="b2">
+      <li>111111111</li>
+      <li>22222222</li>
+      <li>333333333</li>
+      <li>4444444444</li>
+      <li>555555</li>
+    </ul>
+  </div>
+
+  <div>
+    <a href="www.baidu.com" id="c1">百度</a>
+  </div>
+
+  <div>
+    <ul class="photo" id="d1">
+      <li>
+        <a href="images/1.jpg" title="图片1">
+          <img src="images/1.jpg" width="200" height="120" alt="A">
+        </a>
+      </li>
+      <li>
+        <a href="images/2.jpg" title="图片2">
+          <img src="images/2.jpg" width="200" height="120" alt="B">
+        </a>
+      </li>
+      <li>
+        <a href="images/3.jpg" title="图片3">
+          <img src="images/3.jpg" width="200" height="120" alt="C">
+        </a>
+      </li>
+    </ul>
+
+    <img id="d2" src="images/1.jpg" alt="大图" width="900" height="400">
+    <p id="d3">选择一个图片</p>
+  </div>
+
+  <script>
+    // 禁用文本框
+    document.getElementById("a1").onclick = function () {
+      document.getElementById("a2").disabled = true;
+    };
+
+    // 改变列表的背景颜色
+    document.getElementById("b1").onclick = function () {
+      document.getElementById("b2").style.backgroundColor = "red";
+    };
+
+    // 阻止超链接跳转
+    document.getElementById("c1").onclick = function () {
+      alert("我被点了");
+      return false;
+    };
+
+    //相册
+    function my$(id) {
+      return document.getElementById(id);
+    };
+    var aObjs = my$("d1").getElementsByTagName("a");
+    for (var i = 0; i < aObjs.length; i++) {
+      aObjs[i].onclick = function () {
+        my$("d2").src = this.href;
+        my$("d3").innerText=this.title;
+        return false;
+      }
+    };
+
+    
+  </script>
+</body>
+
+</html>

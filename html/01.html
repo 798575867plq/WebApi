@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>01</title>
+  </head>
+  <body>
+    <div>
+      <input type="button" value="显示图片" id="a1" />
+      <input type="button" value="修改alt,title" id="a3" />
+      <img src="" alt="抱歉" title="这是灯泡" id="a2" />
+    </div>
+    <div>
+      <input type="button" id="b1" value="改变p的文本内容" />
+      <p id="b2">红红火火恍恍惚惚</p>
+    </div>
+    <div>
+      <input type="button" id="c1" value="改变超链接" />
+      <a href="https://www.baidu.com" id="c2">百度</a>
+    </div>
+    <input type="button" value="改变p哦" id="d3" />
+    <div id="d1">
+      <p>哈哈哈哈哈哈哈哈哈哈哈</p>
+      <p>哈哈哈哈哈哈哈哈哈哈哈</p>
+      <p>哈哈哈哈哈哈哈哈哈哈哈</p>
+      <p>哈哈哈哈哈哈哈哈哈哈哈</p>
+      <p>哈哈哈哈哈哈哈哈哈哈哈</p>
+    </div>
+    <div id="d2">
+      <p>酷酷酷</p>
+      <p>酷酷酷</p>
+      <p>酷酷酷</p>
+      <p>酷酷酷</p>
+    </div>
+    <div>
+      <input type="button" value="更改文本框的值" id="e1" /><br />
+      <input type="text" value="" /><br />
+      <input type="text" value="" /><br />
+      <input type="text" value="" /><br />
+      <input type="text" value="" /><br />
+    </div>
+    <div>
+      <img src="images/1.jpg" alt="" id="g1"/>
+      <img src="images/2.jpg" alt="" />
+      <img src="images/3.jpg" alt="" />
+    </div>
+    <div>
+      <input type="button" value="按钮" id="f1" />
+    </div>
+    <script>
+      //显示图片并设置宽高
+      var showImg = document.getElementById('a1');
+      showImg.onclick = function() {
+        var Img = document.getElementById('a2');
+        Img.src = 'images/1.jpg';
+        Img.width = '300';
+        Img.height = '400';
+      };
+
+      //修改图片的alt属性和title属性
+      document.getElementById('a3').onclick = function() {
+        //返回的是一个伪数值
+        var img1 = document.getElementsByTagName('img');
+        img1[0].alt = '这里';
+        img1[0].title = '没了';
+      };
+
+      //凡是成对的标签，中间的文本内容，设置的时候，都可以使用innerHTML这个属性的方式
+      document.getElementById('b1').onclick = function() {
+        document.getElementById('b2').innerHTML = '哈哈哈哈哈哈哈哈哈';
+      };
+
+      //改变超链接的地址和热点文字
+      document.getElementById('c1').onclick = function() {
+        var aObj = document.getElementById('c2');
+        aObj.href = 'https://www.taobao.com/';
+        aObj.innerHTML = '淘宝';
+      };
+
+      //改变多个p的文字内容
+      document.getElementById('d3').onclick = function() {
+        var pObj = document.getElementById('d1').getElementsByTagName('p');
+        for (var i = 0; i < pObj.length; i++) {
+          pObj[i].innerHTML = '啦啦啦啦啦';
+        }
+      };
+
+      //更改所有文本框的值
+      document.getElementById('e1').onclick = function() {
+        var inObj = document.getElementsByTagName('input');
+        for (var i = 0; i < inObj.length; i++) {
+          if (inObj[i].type != 'button') {
+            inObj[i].value = '好嗨哟';
+          }
+        }
+      };
+
+      //点击每个图片弹出对话框
+      var imgObj = document.getElementsByTagName('img');
+      for (var i = 0; i < imgObj.length; i++) {
+        imgObj[i].width = '200';
+        imgObj[i].height = '100';
+        imgObj[i].onclick = function() {
+          alert('真帅啊');
+        };
+      }
+
+      //改变按钮的value值
+      var but = document.getElementById('f1');
+      but.onclick = function() {
+        this.type = 'text';
+        this.value = '啦啦啦啦啦啦啦';
+        this.id = 'bt';
+      };
+
+      //修改图片自身的宽高
+      document.getElementById("g1").onclick=function(){
+        this.width="300";
+        this.height="200";
+      }
+    </script>
+  </body>
+</html>
