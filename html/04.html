@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    ul {
+      list-style: none;
+      cursor: pointer;
+      padding:0px;
+    }
+
+    .code{
+      width:50px;
+      height: 50px;
+      background: url("images/1.jpg") no-repeat;
+      right: 10px;
+      position: fixed;
+      top:40%;
+    }
+
+    .code a{
+      display: block;
+      width:50px;
+      height: 50px;
+    }
+
+    .code_juti{
+      position: absolute;
+      left: -210px;
+      top:0px;
+    }
+
+    .hide{
+      display: none;
+    }
+
+    .show{
+      display: block;
+    }
+
+    .cls{
+      background-color: chocolate;
+    }
+
+    .d1 div{
+      width: 200px;
+      height: 180px;
+      background-color: indigo;
+      float: left;
+      margin-left: 10px;
+      border: 2px solid indigo;
+    }
+
+    #e1{
+      color: gray;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <ul id="a1">
+      <li>无念无想</li>
+      <li>佛系玩家</li>
+      <li>有点财气</li>
+      <li>氪金玩家</li>
+      <li>哈哈哈哈</li>
+      <li>嘻嘻嘻嘻</li>
+      <li>啦啦啦啦</li>
+    </ul>
+  </div>
+
+  <div class="code" id="code_outside">
+    <a href=""></a>
+    <div class="code_juti hide" id="code_inside">
+      <img src="images/1.jpg" alt="">
+    </div>
+  </div>
+
+  <div>
+    <input type="button" value="根据name获取元素" id="b1">
+    <input type="text" value="哈哈哈哈哈" name="one">
+    <input type="text" value="哈哈哈哈哈" name="one">
+    <input type="text" value="哈哈哈哈哈" name="two">
+    <input type="text" value="哈哈哈哈哈" name="two">
+    <input type="text" value="哈哈哈哈哈" name="one">
+  </div>
+
+  <div>
+    <br>
+    <input type="button" value="根据类样式获取元素" id="c1">
+    <p>不许动</p>
+    <p class="cls">给我变</p>
+    <span class="cls">给我变</span><br>
+    <span>不许动</span>
+    <div class="cls">给我变</div>
+    <div>不许动</div>
+  </div>
+
+  <div class="d1" id="d1">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <div>
+    <input type="text" value="请输入内容" id="e1">
+  </div>
+
+  <div>
+    <input type="password" id="f1">
+  </div>
+
+  <div>
+    <input type="button" value="设置和获取文本框的值" id="g1">
+    <div id="g2">哈哈哈哈哈哈哈哈哈哈或或或或或或或或或或或</div>
+  </div>
+  <script>
+    //列表的高亮显示
+    //根据id属性的值获取元素，返回来的是一个元素对象
+    function my$(id) {
+      return document.getElementById(id);
+    }
+    var list = my$("a1").getElementsByTagName("li");
+    for (var i = 0; i < list.length; i++) {
+      list[i].onmouseover = function () {
+        this.style.backgroundColor = "pink";
+      };
+      list[i].onmouseout = function () {
+        this.style.backgroundColor = "";
+      }
+    }
+
+    //二维码显示和隐藏
+    //根据标签名字获取元素,返回来的是一个伪数组，里面保存了多个DOM对象
+    var code = my$("code_outside").getElementsByTagName("a")[0];
+    code.onmouseover = function () {
+      my$("code_inside").className = "code_juti show";
+    };
+    code.onmouseout = function () {
+      my$("code_inside").className = "code_juti hide";
+    };
+
+    //根据name属性值获取元素,返回来的是一个伪数组，里面保存了多个DOM对象
+    my$("b1").onclick = function () {
+      var inputs = document.getElementsByName("one");
+      for (var i = 0; i < inputs.length; i++) {
+        inputs[i].value = "嘻嘻嘻嘻嘻嘻嘻嘻";
+      }
+    };
+
+    //根据类样式获取元素,返回来的是一个伪数组，里面保存了多个DOM对象
+    my$("c1").onclick = function () {
+      var cc = document.getElementsByClassName("cls");
+      for (var i = 0; i < cc.length; i++) {
+        cc[i].style.backgroundColor = "red";
+      }
+    };
+
+    //根据选择器获取元素，返回来的是一个元素对象
+    // document.querySelector("选择器的名字");
+    // 根据选择器获取对象，返回来的是一个伪数组，里面保存了多个DOM对象
+    // document.querySelectorAll("选择器的名字");
+
+    //div的高亮显示
+    var divs = my$("d1").querySelectorAll("div");
+    for (var i = 0; i < divs.length; i++) {
+      divs[i].onmouseover = function () {
+        this.style.border = "2px solid red";
+      }
+      divs[i].onmouseout = function () {
+        this.style.border = "";
+      }
+    }
+
+    //搜索框
+    my$("e1").onfocus = function () {
+      if (this.value == "请输入内容") {
+        this.value = "";
+        this.style.color = "black";
+      }
+    };
+    my$("e1").onblur = function () {
+      if (this.value.length == 0) {
+        this.value = "请输入内容";
+        this.style.color = "gray";
+      }
+    };
+
+    //获取密码的长度
+    my$("f1").onblur = function () {
+      if (this.value.length >= 6 && this.value.length <= 10) {
+        this.style.backgroundColor = "blue";
+      } else {
+        this.style.backgroundColor = "red";
+      }
+    };
+
+    //浏览器兼容代码，设置和获取文本框的值
+    function setInnerText(element, text) {
+      if (typeof element.textContent == "undefined") {//不支持
+        element.innerText = text;
+      } else {
+        element.textContent = text;
+      }
+    };
+
+    function getInnerText(element) {
+      if (typeof element.textContent == "undefined") {//不支持
+        return element.innerText;
+      } else {
+        return element.textContent;
+      }
+    };
+
+    my$("g1").onclick = function () {
+      console.log(getInnerText(my$("g2")));
+      setInnerText(my$("g2"), "啦啦啦啦啦啦啦啦啦啦了");
+    }
+  </script>
+</body>
+
+</html>
