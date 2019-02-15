@@ -105,15 +105,19 @@
       spans[i].setAttribute("index", i); //添加索引
       spans[i].onclick = function () {
         for (var j = 0; j < spans.length; j++) { //遍历span
-          spans[j].removeAttribute("class"); //移除所有span样式
+          spans[j].classList.remove("current"); //移除所有span样式
         }
-        this.ClassList = "current"; //设置当前span样式
         var num = this.getAttribute("index"); //获取索引
         for (var k = 0; k < lis.length; k++) { //遍历li
-          lis[k].removeAttribute("class"); //移除所有li样式
+          lis[k].classList.remove("current"); //移除所有li样式
         }
-        this.ClassList = "current"; //设置当前li样式
+        aa(this);
       };
+    }
+
+    function aa(ele) {
+      spans[ele.getAttribute("index")].classList.add("current"); //设置当前span样式
+      lis[ele.getAttribute("index")].classList.add("current"); //设置当前li样式
     }
   </script>
 </body>
