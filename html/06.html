@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="a1">
+    <p>哈哈哈哈哈哈哈哈哈哈</p>
+    <ul id="a2">
+      <li>1</li>
+      <li>2</li>
+      <li id="a3">3</li>
+      <li>4</li>
+    </ul>
+  </div>
+
+  <div id="b2">
+    <input type="button" value="节点获取元素" id="b1">
+    <p>这是p</p>
+    <span>这是span</span>
+    <p>这是p</p>
+    <span>这是span</span>
+    <p>这是p</p>
+    <span>这是span</span>
+  </div>
+
+  <div>
+    <input type="button" value="隔行变色" id="c1">
+    <ul id="c2">
+      <li>咔咔咔咔咔咔</li>
+      <li>咔咔咔咔咔咔</li>
+      <li>咔咔咔咔咔咔</li>
+      <li>咔咔咔咔咔咔</li>
+      <li>咔咔咔咔咔咔</li>
+      <li>咔咔咔咔咔咔</li>
+    </ul>
+  </div>
+
+  <script>
+    function my$(id) {
+      return document.getElementById(id);
+    };
+    var ulObj = my$("a2");
+    console.log(ulObj.parentNode); //父节点
+    console.log(ulObj.parentElement); //父元素
+    console.log(ulObj.parentNode.nodeType); //标签---1
+    console.log(ulObj.parentNode.nodeName); //标签的大写名字
+    console.log(ulObj.parentNode.nodeValue); //null
+    //nodeType:节点类型：标签----1，属性----2，文本------3
+    //nodeName:节点名字:标签-----大写的标签名字，属性-------小写的属性名字，文本-------#text
+    //nodeValue:节点值：标签------null，属性-------属性的值，文本-------文本内容
+    console.log(ulObj.childNodes); //子节点
+    // console.log(ulObj.childElementCount); //子元素个数
+    console.log(ulObj.children); //子元素
+    console.log(ulObj.firstChild); //第一个子节点
+    console.log(ulObj.firstElementChild); //第一个子元素
+    console.log(my$("a3").previousSibling); //前一个兄弟节点
+    console.log(my$("a3").previousElementSibling); //前一个兄弟元素
+    console.log(my$("a3").nextSibling); //后一个兄弟节点
+    console.log(my$("a3").nextElementSibling); //后一个兄弟元素
+    //注意：-------从子节点和兄弟节点开始，凡是获取节点的代码在IE中得到的是元素，凡是获取元素的代码在IE中得到的是undefined----元素的代码，IE不支持
+
+    // 节点获取元素
+    my$("b1").onclick = function () {
+      var dObj = my$("b2");
+      var dnode = dObj.childNodes;
+      for (var i = 0; i < dnode.length; i++) {
+        if (dnode[i].nodeType == 1 && dnode[i].nodeName == "P") {
+          dnode[i].style.backgroundColor = "red";
+        }
+      }
+    };
+
+    // 隔行变色
+    my$("c1").onclick = function () {
+      var uu = my$("c2");
+      var unode = uu.childNodes;
+      var count = 0;
+      for (var i = 0; i < unode.length; i++) {
+        if (unode[i].nodeType == 1 && unode[i].nodeName == "LI") {
+          unode[i].style.backgroundColor = count % 2 == 0 ? "red" : "blue";
+          count++;
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>

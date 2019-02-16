@@ -1,125 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <style>
-    ul {
-      list-style: none;
-      cursor: pointer;
-    }
-    .aa{
-      color: red;
-    }
-
-    .box{
-      width:500px;
-      height: 700px;
-    }
-    .headBox{
-      width:500px;
-      height: 50px;
-    }
-    .headBox span{
-      width:100px;
-      height: 50px;
-      display: inline-block;
-    }
-    .current{
-      background-color:tomato;
-    }
-    .bodyBox{
-      width:500px;
-      height: 400px;
-    }
-    .bodyBox li{
-      display: none;
-    }
-    .bodyBox .current{
-      display: block;
-    }
-  </style>
-</head>
-
-<body>
-  <div>
-    <ul id="a1">
-      <li>张三</li>
-      <li>李四</li>
-      <li class="aa">王五</li>
-      <li>赵六</li>
-      <li>哈哈哈哈哈哈哈哈</li>
-    </ul>
-    <input type="button" value="移除自定义属性" id="a2">
-  </div>
-
-  <div class="box" id="box">
-    <div class="headBox">
-      <span class="current">哈哈哈哈哈哈</span>
-      <span>哦哦哦哦哦哦</span>
-      <span>嗯嗯嗯嗯嗯嗯</span>
-      <span>啦啦啦啦啦啦</span>
-    </div>
-    <div class="bodyBox">
-      <ul>
-        <li class="current">哈哈哈哈哈哈</li>
-        <li>哦哦哦哦哦哦</li>
-        <li>嗯嗯嗯嗯嗯嗯</li>
-        <li>啦啦啦啦啦啦</li>
-      </ul>
-    </div>
-  </div>
-
-  <script>
-    //自定义属性
-    // 设置自定义属性：setAttribute("属性的名字",属性的值);
-    // 获取自定义属性：getAttribute("属性的名字");
-    // 移除自定义属性：removeAttribute("属性的名字");---------这个也可以移除自带的属性，如class
-    function my$(id) {
-      return document.getElementById(id);
-    };
-    var list = my$("a1").getElementsByTagName("li");
-    for (var i = 0; i < list.length; i++) {
-      list[i].setAttribute("score", (i + 1) * 10);
-      list[i].onclick = function () {
-        alert(this.getAttribute("score"));
-      };
-    }
-    my$("a2").onclick = function () {
-      for (var j = 0; j < list.length; j++) {
-        list[j].removeAttribute("score");
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      ul {
+        list-style: none;
+        cursor: pointer;
+        padding: 0px;
+        margin:0px;
       }
-      list[2].removeAttribute("class");
-    };
+      .aa {
+        color: red;
+      }
 
-    //tab切换
-    var box = my$("box"); //最外层div
-    var headBox = box.getElementsByTagName("div")[0]; //控制div
-    var bodyBox = box.getElementsByTagName("div")[1]; //显示对应的div
-    var spans = headBox.getElementsByTagName("span"); //所有span
-    var lis = bodyBox.getElementsByTagName("li"); //所有li
-    for (var i = 0; i < spans.length; i++) {
-      spans[i].setAttribute("index", i); //添加索引
-      spans[i].onclick = function () {
-        for (var j = 0; j < spans.length; j++) { //遍历span
-          spans[j].classList.remove("current"); //移除所有span样式
+      .box {
+        width: 495px;
+      }
+      .headBox {
+        width: 495px;
+      }
+      .headBox span {
+        width: 120px;
+        height: 50px;
+        display: inline-block;
+      }
+      .current {
+        background-color: tomato;
+      }
+      .bodyBox {
+        width: 495px;
+      }
+      .bodyBox li {
+        display: none;
+        width: 495px;
+        height: 100px;
+      }
+      .bodyBox .current {
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>
+      <ul id="a1">
+        <li>张三</li>
+        <li>李四</li>
+        <li class="aa">王五</li>
+        <li>赵六</li>
+        <li>哈哈哈哈哈哈哈哈</li>
+      </ul>
+      <input type="button" value="移除自定义属性" id="a2" />
+    </div>
+    <br />
+
+    <div class="box" id="box">
+      <div class="headBox">
+        <span class="current">哈哈哈哈哈哈</span>
+        <span>哦哦哦哦哦哦</span>
+        <span>嗯嗯嗯嗯嗯嗯</span>
+        <span>啦啦啦啦啦啦</span>
+      </div>
+      <div class="bodyBox">
+        <ul>
+          <li class="current">哈哈哈哈哈哈</li>
+          <li>哦哦哦哦哦哦</li>
+          <li>嗯嗯嗯嗯嗯嗯</li>
+          <li>啦啦啦啦啦啦</li>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+      //自定义属性
+      // 设置自定义属性：setAttribute("属性的名字",属性的值);
+      // 获取自定义属性：getAttribute("属性的名字");
+      // 移除自定义属性：removeAttribute("属性的名字");---------这个也可以移除自带的属性，如class
+      function my$(id) {
+        return document.getElementById(id);
+      }
+      var list = my$("a1").getElementsByTagName("li");
+      for (var i = 0; i < list.length; i++) {
+        list[i].setAttribute("score", (i + 1) * 10);
+        list[i].onclick = function() {
+          alert(this.getAttribute("score"));
+        };
+      }
+      my$("a2").onclick = function() {
+        for (var j = 0; j < list.length; j++) {
+          list[j].removeAttribute("score");
         }
-        var num = this.getAttribute("index"); //获取索引
-        for (var k = 0; k < lis.length; k++) { //遍历li
-          lis[k].classList.remove("current"); //移除所有li样式
-        }
-        aa(this);
+        list[2].removeAttribute("class");
       };
-    }
 
-    function aa(ele) {
-      spans[ele.getAttribute("index")].classList.add("current"); //设置当前span样式
-      lis[ele.getAttribute("index")].classList.add("current"); //设置当前li样式
-    }
-  </script>
-</body>
-
+      //tab切换
+      var box = my$("box"); //最外层div
+      var headBox = box.getElementsByTagName("div")[0]; //控制div
+      var bodyBox = box.getElementsByTagName("div")[1]; //显示对应的div
+      var spans = headBox.getElementsByTagName("span"); //所有span
+      var lis = bodyBox.getElementsByTagName("li"); //所有li
+      for (var i = 0; i < spans.length; i++) {
+        spans[i].setAttribute("index", i); //添加索引
+        spans[i].onclick = function() {
+          for (var j = 0; j < spans.length; j++) {
+            //遍历span
+            spans[j].classList.remove("current"); //移除所有span样式
+          }
+          var num = this.getAttribute("index"); //获取索引
+          for (var k = 0; k < lis.length; k++) {
+            //遍历li
+            lis[k].classList.remove("current"); //移除所有li样式
+          }
+          aa(this);
+        };
+      }
+      function aa(ele) {
+        spans[ele.getAttribute("index")].classList.add("current"); //设置当前span样式
+        lis[ele.getAttribute("index")].classList.add("current"); //设置当前li样式
+      }
+    </script>
+  </body>
 </html>

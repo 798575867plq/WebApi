@@ -210,7 +210,6 @@
         element.textContent = text;
       }
     };
-
     function getInnerText(element) {
       if (typeof element.textContent == "undefined") {//不支持
         return element.innerText;
@@ -218,7 +217,6 @@
         return element.textContent;
       }
     };
-
     my$("g1").onclick = function () {
       console.log(getInnerText(my$("g2")));
       setInnerText(my$("g2"), "啦啦啦啦啦啦啦啦啦啦了");

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <style>
+    body {
+      background-image: url("images/2.jpg");
+    }
+
+    .mask {
+      width: 100%;
+      background-color: rgba(11, 22, 33, 0.3);
+      text-align: center;
+    }
+
+    .mask img {
+      width: 200px;
+      height: 180px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="mask" id="a1">
+    <img src="images/1.jpg" alt="">
+    <img src="images/2.jpg" alt="">
+    <img src="images/3.jpg" alt="">
+  </div>
+
+
+  <script>
+    //切换背景图片
+    function my$(id) {
+      return document.getElementById(id);
+    };
+    var dObj = my$("a1");
+    var nodes = dObj.childNodes;
+    for (var i = 0; i < nodes.length; i++) {
+      nodes[i].onclick = function () {
+        document.body.style.backgroundImage = "url(" + this.src + ")";
+      }
+    }
+  </script>
+</body>
+
+</html>
