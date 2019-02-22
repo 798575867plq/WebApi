@@ -1,18 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Document</title>
+  <style>
+    table {
+        width: 200px;
+        height: 200px;
+        border-collapse: collapse;
+      }
+      table tr td {
+        border: 2px solid #666;
+      }
+      table tr th{
+        border: 2px solid #666;
+        padding: 0px;
+        margin:0px;
+      }
+      thead th{
+        background-color: orange;
+      }
+    </style>
 </head>
+
 <body>
   <div>
+    <table id="table">
+      <thead>
+        <tr>
+          <th><input type="checkbox" id="all" /></th>
+          <th>名字</th>
+          <th>年龄</th>
+        </tr>
+      </thead>
+      <tbody id="tb">
+        <tr>
+          <td><input type="checkbox" /></td>
+          <td>张三</td>
+          <td>12</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" /></td>
+          <td>李四</td>
+          <td>21</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" /></td>
+          <td>王五</td>
+          <td>99</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
+  <div>
+    <input type="button" value="创建元素1" id="a1">
+  </div>
+
+  <div>
+    <input type="button" value="创建元素2" id="a2">
+    <div id="a3"></div>
+  </div>
+
+  <div>
+    <input type="button" value="创建图片" id="b1">
+    <div id="b2"></div>
+  </div>
+
+  <div>
+    <input type="button" value="创建列表" id="b3">
+    <div id="b4"></div>
+  </div>
+
+  <div>
+    <input type="button" value="创建元素3" id="c1">
+    <div id="c2"></div>
   </div>
 
   <script>
-  
+    //高亮显示
+    function my$(id) {
+      return document.getElementById(id);
+    };
+    var list = my$("table").getElementsByTagName("tr");
+    for (var i = 0; i < list.length; i++) {
+      list[i].onmouseover = function () {
+        this.style.backgroundColor = "pink";
+      };
+      list[i].onmouseout = function () {
+        this.style.backgroundColor = "";
+      }
+    }
+
+    //全选和全不选
+    var All = document.getElementById("all");
+    var ck = document.getElementById("tb").getElementsByTagName("input");
+    All.onclick = function () {
+      for (var i = 0; i < ck.length; i++) {
+        ck[i].checked = this.checked;
+      }
+    };
+    for (var i = 0; i < ck.length; i++) {
+      ck[i].onclick = function () {
+        var flag = true;
+        for (var j = 0; j < ck.length; j++) {
+          if (!ck[j].checked) {
+            flag = false;
+            break;
+          }
+        }
+        All.checked = flag;
+      };
+    }
+
+    //第一种创建元素的方式：document.write("");也可以链接到外部网站的广告和内容
+    my$("a1").onclick = function () {
+      document.write("<p>我是一个p</p>");
+    };
+
+    //第二种创建元素的方式：对象.innerHTML="";
+    my$("a2").onclick = function () {
+      my$("a3").innerHTML = "哈哈哈哈哈哈";
+    };
+
+    //创建图片
+    my$("b1").onclick = function () {
+      my$("b2").innerHTML = "<img src='images/1.jpg' alt='哈哈'>";
+    };
+
+    //创建列表
+    var names = ["张三", "李四", "王五", "赵六", "哈哈", "June"];
+    my$("b3").onclick = function () {
+      var str = "<ul style='list-style:none; cursor: pointer;'>";
+      for (var i = 0; i < names.length; i++) {
+        str += "<li>" + names[i] + "</li>";
+      }
+      str += "</ul>";
+      my$("b4").innerHTML = str;
+      //列表高亮
+      var list = my$("b4").getElementsByTagName("li");
+      for (var i = 0; i < list.length; i++) {
+        list[i].onmouseover = function () {
+          this.style.backgroundColor = "orangered";
+        }
+        list[i].onmouseout = function () {
+          this.style.backgroundColor = "";
+        }
+      }
+    };
+
+    //第三种创建元素的方式：document.createElement("标签名字");
+    my$("c1").onclick = function () {
+      var pObj = document.createElement("p");
+      pObj.innerHTML = "这是一个p";
+      my$("c2").appendChild(pObj);
+    }
   </script>
 </body>
+
 </html>
