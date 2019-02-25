@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>
+    <input type="button" value="创建表格" id="a1">
+    <div id="a2"></div>
+
+  </div>
+
+
+
+
+  <script>
+    //动态创建表格
+    var aa = [{
+        name: "百度",
+        href: "http://www.baidu.com"
+      },
+      {
+        name: "优酷",
+        href: "http://www.youku.com"
+      },
+      {
+        name: "百度",
+        href: "http://www.baidu.com"
+      },
+      {
+        name: "优酷",
+        href: "http://www.youku.com"
+      },
+      {
+        name: "淘宝",
+        href: "http://www.taobao.com"
+      }
+    ];
+
+    function my$(id) {
+      return document.getElementById(id);
+    }
+    my$("a1").onclick = function () {
+      var tableObj = document.createElement("table");
+      tableObj.border = "1";
+      tableObj.cellPadding="20";
+      tableObj.cellSpacing="0";
+      my$("a2").appendChild(tableObj);
+      for (var i = 0; i < aa.length; i++) {
+        var dt = aa[i];
+        var trObj = document.createElement("tr");
+        tableObj.appendChild(trObj);
+        var td1 = document.createElement("td");
+        td1.innerHTML = dt.name;
+        trObj.appendChild(td1);
+        var td2 = document.createElement("td");
+        td2.innerHTML = "<a href=" + dt.href + ">" + dt.name + "</a>";
+        trObj.appendChild(td2);
+      }
+    };
+  </script>
+</body>
+
+</html>
