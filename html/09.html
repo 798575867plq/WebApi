@@ -2,20 +2,58 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Document</title>
+  <style>
+    #d1{
+    width:300px;
+    height: 300px;
+    background-color: red;
+  }
+
+  #d2{
+    width:200px;
+    height: 200px;
+    background-color: blue;
+  }
+
+  #d3{
+    width:100px;
+    height: 100px;
+    background-color: green;
+  }
+  </style>
 </head>
 
 <body>
   <div>
-    <input type="button" value="创建表格" id="a1">
+    <input type="button" value="创建表格" id="a1" />
     <div id="a2"></div>
-
   </div>
 
+  <div>
+    <input type="button" value="只创建一个按钮" id="b1" />
+    <div id="b2"></div>
+  </div>
 
+  <div>
+    <input type="button" value="绑定事件addEventListener" id="c1">
+    <input type="button" value="解除绑定事件removeEventListener" id="c2">
+    <input type="button" value="绑定事件" id="c3">
+    <input type="button" value="解除绑定事件" id="c4">
+  </div>
+
+  <div id="d1">
+    <div id="d2">
+      <div id="d3"></div>
+    </div>
+  </div>
+
+  <div>
+    <input type="button" value="为同一个元素绑定多个不同的事件，指向相同的事件处理函数" id="e1">
+  </div>
 
 
   <script>
@@ -48,8 +86,8 @@
     my$("a1").onclick = function () {
       var tableObj = document.createElement("table");
       tableObj.border = "1";
-      tableObj.cellPadding="20";
-      tableObj.cellSpacing="0";
+      tableObj.cellPadding = "20";
+      tableObj.cellSpacing = "0";
       my$("a2").appendChild(tableObj);
       for (var i = 0; i < aa.length; i++) {
         var dt = aa[i];
@@ -63,6 +101,88 @@
         trObj.appendChild(td2);
       }
     };
+
+    //只创建一个按钮
+    my$("b1").onclick = function () {
+      if (!my$("b3")) {
+        var obj = document.createElement("input");
+        obj.value = "按钮";
+        obj.type = "button";
+        obj.id = "b3";
+        my$("b2").appendChild(obj);
+      }
+    };
+
+    //为按钮添加绑定事件
+    function f1() {
+      console.log("嘎嘎嘎嘎嘎过过过过过过");
+    };
+
+    function f2() {
+      console.log("坎坎坷坷");
+    };
+    my$("c1").addEventListener("click", f1, false);
+    my$("c1").addEventListener("click", f2, false);
+    my$("c3").onclick = function () {
+      console.log("哈哈哈哈");
+    };
+
+    //解绑事件
+    my$("c2").onclick = function () {
+      my$("c1").removeEventListener("click", f1, false);
+    };
+    my$("c4").onclick = function () {
+      my$("c3").onclick = null;
+    };
+
+
+    //解绑事件
+    //注意：用什么方式绑定事件，就用什么方式解绑事件
+    //第一种：对象.on事件名字=事件处理函数-----------------------绑定事件
+    //       对象.on事件名字=null;-----------------解绑事件
+    //第二种：对象.addEventListener("没有on的事件类型",命名函数,控制事件阶段的false或者true);------------------绑定事件
+    //       对象.removeEventListener("没有on的事件类型",函数名字,false);-------------------解绑事件
+
+    //事件冒泡：多个元素嵌套，有层次关系，这些元素都注册了相同的事件，如果里面的元素的事件触发了，外面的元素的该事件自动触发了
+    //阻止事件冒泡：window.event.cancelBubble = true;    谷歌，IE8支持，火狐不支持
+    my$("d1").onclick = function () {
+      console.log(this.id);
+    };
+    my$("d2").onclick = function () {
+      console.log(this.id);
+    };
+    my$("d3").onclick = function () {
+      console.log(this.id);
+      window.event.cancelBubble = true;
+    };
+    // document.body.onclick = function () {
+    //   console.log("这是body");
+    // }
+
+    //事件有三个阶段
+    //1、事件捕获阶段：从外到里  true
+    //2、事件目标阶段：最开始选择的那个
+    //3、事件冒泡阶段：从里到外  false
+
+    //为同一个元素绑定多个不同的事件，指向相同的事件处理函数
+    my$("e1").addEventListener("click", f3);
+    my$("e1").addEventListener("mouseover", f3);
+    my$("e1").addEventListener("mouseout", f3);
+
+    function f3(e) {
+      switch (e.type) {
+        case "click":
+          alert("click");
+          break;
+        case "mouseover":
+          this.style.background = "red";
+          break;
+        case "mouseout":
+          this.style.background = "yellow";
+          break;
+      };
+    };
+
   </script>
 </body>
 
