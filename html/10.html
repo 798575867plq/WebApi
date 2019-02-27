@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>百度搜索案例</title>
+  <style>
+    p{
+    margin:0px;
+    padding:0px;
+    cursor: pointer;
+    margin-top:5px;
+  }
+  #txt{
+    width:300px;
+    height: 20px;
+  }
+  </style>
+</head>
+
+<body>
+  <div id="box">
+    <input type="text" id="txt">
+    <input type="button" value="搜索">
+  </div>
+
+
+
+  <script>
+    function my$(id) {
+      return document.getElementById(id);
+    };
+    var keyWords = ["小红好帅", "小红好棒", "小哈哈", "五月天", "六月份的尾巴", "小黑好黑哦", "六六六"];
+    //注册键盘抬起事件
+    my$("txt").onkeyup = function () {
+      //每抬起一次判断有没有这个div,有则删除
+      if (my$("dv")) {
+        my$("box").removeChild(my$("dv"));
+      }
+      //获取文本框的值
+      var text = this.value;
+      //创建临时数组
+      var Arr = [];
+      //把文本框输入的内容和每个数据进行对比
+      for (var i = 0; i < keyWords.length; i++) {
+        if (keyWords[i].indexOf(text) == 0) {
+          Arr.push(keyWords[i]);
+        }
+      }
+      //如果文本框是空的，临时数组是空的，不用创建div
+      if (this.value.length == 0 || Arr.length == 0) {
+        if (my$("dv")) {
+          my$("box").removeChild(my$("dv"));
+        }
+        return;
+      }
+      //创建div
+      var dvObj = document.createElement("div");
+      my$("box").appendChild(dvObj);
+      dvObj.id = "dv";
+      dvObj.style.width = "300px";
+      dvObj.style.border = "1px solid red";
+      //循环遍历临时数组，创建对应的p标签
+      for (var i = 0; i < Arr.length; i++) {
+        var pObj = document.createElement("p");
+        dvObj.appendChild(pObj);
+        pObj.innerHTML = Arr[i];
+        pObj.addEventListener("mouseover", f1);
+        pObj.addEventListener("mouseout", f2);
+
+        function f1() {
+          this.style.backgroundColor = "yellow";
+        }
+
+        function f2() {
+          this.style.backgroundColor = "";
+        }
+      }
+    };
+  </script>
+</body>
+
+</html>
