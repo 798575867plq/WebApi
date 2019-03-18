@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <style>
+    .dv{
+    width:200px;
+    height: 200px;
+    background-color: brown;
+    border-radius: 100px;
+  }
+
+  #d3{
+    width:200px;
+    height: 100px;
+    background-color: darkgreen;
+    position: absolute;
+  }
+  </style>
+</head>
+
+<body>
+  <div>
+    <textarea name="" id="" cols="30" rows="10">这是协议条款，必须同意哦，嘿嘿嘿吼吼吼</textarea>
+    <input type="button" id="a1" value="请仔细阅读以上条款（5）" disabled>
+  </div>
+
+  <div>
+    <div id="b1" class="dv"></div>
+    <button id="b2">渐变</button>
+  </div>
+
+  <div>
+    <div class="dv" id="c1"></div>
+    <button id="c2">div变宽</button>
+  </div>
+
+  <div>
+    <button id="d1">移动到400px</button>
+    <button id="d2">移动到800px</button>
+    <div id="d3"></div>
+  </div>
+
+
+  <script>
+    //协议按钮禁用
+    var time = 5;
+    var timeid = setInterval(function () {
+      time--;
+      document.getElementById("a1").value = "请仔细阅读以上条款（" + time + "）";
+      if (time <= 0) {
+        clearInterval(timeid);
+        document.getElementById("a1").disabled = false;
+        document.getElementById("a1").value = "同意";
+      }
+    }, 1000);
+
+    //渐变
+    document.getElementById("b2").onclick = function () {
+      var opacity = 10;
+      var timeID = setInterval(function () {
+        opacity--;
+        if (opacity <= 0) {
+          clearInterval(timeID);
+        }
+        document.getElementById("b1").style.opacity = opacity / 10;
+      }, 200);
+    }
+
+    //div变宽
+    document.getElementById("c2").onclick = function () {
+      var width = 200;
+      var tid = setInterval(function () {
+        width += 20;
+        if (width >= 800) {
+          clearInterval(tid);
+        }
+        document.getElementById("c1").style.width = width + "px";
+      }, 100);
+    }
+
+    //封装动画函数----------任意一个元素移动到指定位置
+    document.getElementById("d1").onclick = function () {
+      animate(document.getElementById("d3"), 400);
+    }
+    document.getElementById("d2").onclick = function () {
+      animate(document.getElementById("d3"), 800);
+    }
+
+    function animate(element, target) {
+      clearInterval(element.timeId);
+      element.timeId = setInterval(function () {
+        var current = element.offsetLeft;
+        var step = 10;
+        step = current < target ? step : -step;
+        current += step;
+        if (Math.abs(target - current) > Math.abs(step)) {
+          element.style.left = current + "px";
+        } else {
+          clearInterval(element.timeId);
+          element.style.left = target + "px";
+        }
+      }, 100);
+    }
+  </script>
+</body>
+
+</html>

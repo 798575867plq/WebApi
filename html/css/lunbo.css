@@ -1,0 +1,100 @@
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+.carousel {
+  width: 800px;
+  height: 600px;
+  margin: 0px auto;
+  border: 1px solid #000;
+  position: relative;
+}
+
+.left-arrow,
+.right-arrow {
+  color: #757575;
+  z-index: 10;
+  position: absolute;
+  font-size: 5rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.right-arrow {
+  right: 0px;
+}
+
+.left-arrow > div,
+.right-arrow > div {
+  padding: 0.2rem;
+}
+
+.left-arrow > div:hover,
+.right-arrow > div:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  cursor: pointer;
+  border-radius: 0.2rem;
+}
+
+.dots {
+  z-index: 20;
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+}
+
+.dots > div {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background-color: #444;
+  border: 2px solid #aaa;
+  border-radius: 50%;
+}
+
+.dot:hover,
+.dot.active {
+  background-color: #fff;
+  cursor: pointer;
+}
+
+/* @keyframes movein {
+  0% {
+    left: 100%;
+  }
+  100% {
+    left: 0px;
+  }
+} */
+
+.images {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.images img {
+  width: 100%;
+  height: 100%;
+}
+
+.images > div {
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: absolute;
+}
+
+.images > div.active {
+  display: block;
+  animation: movein 1s;
+}

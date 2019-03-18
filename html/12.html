@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #a4 {
+      position: absolute;
+    }
+
+    #a4 img {
+      width: 300px;
+      height: 200px;
+    }
+
+    #a5 {
+      position: relative;
+    }
+
+    #b1 {
+      margin-top: 220px;
+    }
+
+    #b2 {
+      width: 600px;
+      height: 500px;
+      border: 2px solid royalblue;
+      background-color: black;
+      position: relative;
+      margin-top: 10px;
+    }
+
+    #b2 span {
+      font-size: 30px;
+      color: gold;
+      position: absolute;
+    }
+
+    #b3 {
+      position: relative;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <button id="a1">停止定时器</button>
+  </div>
+
+  <div>
+    <button id="c1">停止一次性定时器</button>
+  </div>
+
+  <div id="a5">
+    <button id="a2">摇起来</button>
+    <button id="a3">停止</button>
+    <div id="a4">
+      <img src="images/1.jpg" alt="">
+      <img src="images/2.jpg" alt="">
+      <img src="images/3.jpg" alt="">
+    </div>
+  </div>
+
+  <div id="b3">
+    <button id="b1">好多星星啊</button>
+    <div id="b2"></div>
+  </div>
+
+
+  <script>
+    //BOM有2个定时器
+    // 定时器：setInterval--------页面加载完毕后过了一秒才执行定时器里面的代码，可以循环使用
+    //参数1：函数
+    // 参数2：时间----毫秒----1000毫秒为1秒
+    // 返回值就是定时器id的值
+    var timeID = setInterval(function () {
+      console.log("哈哈哈哈哈哈");
+    }, 1000);
+    document.getElementById("a1").onclick = function () {
+      //清理定时器clearInterval
+      clearInterval(timeID);
+    }
+
+    //一起摇摆
+    var timeid = "";
+    document.getElementById("a2").onclick = function () {
+      timeid = setInterval(function () {
+        var x = parseInt(Math.random() * 100 + 1);
+        var y = parseInt(Math.random() * 100 + 1);
+        document.getElementById("a4").style.left = x + "px";
+        document.getElementById("a4").style.top = y + "px";
+      }, 100);
+    };
+    document.getElementById("a3").onclick = function () {
+      clearInterval(timeid);
+    };
+
+    //星星
+    document.getElementById("b1").onclick = function () {
+      setInterval(function () {
+        document.getElementById("b2").innerHTML = "<span>★</span>";
+        var x = parseInt(Math.random() * 500 + 1);
+        var y = parseInt(Math.random() * 500 + 1);
+        document.getElementById("b2").firstElementChild.style.left = x + "px";
+        document.getElementById("b2").firstElementChild.style.top = y + "px";
+      }, 500);
+    };
+
+    //定时器----setTimeout-----一次性---只执行一次，不清理会占内存
+    var t = setTimeout(function () {
+      alert("红火火恍恍惚惚");
+    }, 1000);
+    document.getElementById("c1").onclick = function () {
+      clearTimeout(t);
+    }
+  </script>
+</body>
+
+</html>

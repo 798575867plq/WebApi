@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>
+    <input type="button" id="a1" value="location对象">
+  </div>
+
+
+
+  <script>
+    //location对象
+    console.log(window.location);
+    //地址栏
+    console.log(window.location.href);
+    //地址栏上#及后面的内容
+    console.log(window.location.hash);
+    //主机名和端口号
+    console.log(window.location.host);
+    //主机名
+    console.log(window.location.hostname);
+    //文件的路径----相对路径
+    console.log(window.location.pathname);
+    //端口号
+    console.log(window.location.port);
+    //协议
+    console.log(window.location.protocol);
+    //搜索的内容
+    console.log(window.location.search);
+
+    //window可省略，onload事件：页面加载完毕后显示更多
+    window.onload = function () {
+      document.getElementById("a1").onclick = function () {
+        //location.href = "http://www.jd.com";--------属性，非常重要
+        //location.assign("http://www.jd.com");--------方法，和上面的效果一模一样
+        //location.replace("http://www.jd.com");-------没有历史纪录，无法后退
+        //location.reload();------------重新加载，刷新
+
+      }
+    }
+
+    //history对象
+    //window.history.back();-----------相当于浏览器中的后退箭头
+    //window.history.forward();------------相当于浏览器中的前进箭头
+    //window.history.go(1);------------正数相当于浏览器中的前进箭头，负数后退
+
+
+    // navigator对象
+    //可以判断浏览器所在的系统平台类型
+    console.log(window.navigator.platform);
+    //可以判断用户浏览器的类型
+    console.log(window.navigator.userAgent);
+  </script>
+</body>
+
+</html>
