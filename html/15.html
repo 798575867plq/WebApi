@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>轮播图-非完整版</title>
+
+    <style>
+        ul {
+            list-style: none;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .box {
+
+            height: 280px;
+            margin: 300px auto;
+        }
+
+        .inner {
+            width: 400px;
+            height: 280px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .inner ul {
+            display: flex;
+            position: absolute;
+        }
+
+        .inner ul li a img {
+            width: 400px;
+            height: 280px;
+        }
+
+        .square {
+            position: absolute;
+            right: 0px;
+            bottom: 0px;
+        }
+
+        .square span {
+            padding: 5px;
+            background-color: coral;
+        }
+
+        .current {
+            color: aqua;
+        }
+
+        #foucs {
+            position: absolute;
+            top: 45%;
+            width: 100%;
+            display: none;
+        }
+
+        #foucs span {
+            position: absolute;
+            background-color: #ffffff;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        #right {
+            right: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="box">
+        <div class="inner">
+            <ul>
+                <li><a href=""><img src="images/1.jpg" alt=""></a></li>
+                <li><a href=""><img src="images/2.jpg" alt=""></a></li>
+                <li><a href=""><img src="images/3.jpg" alt=""></a></li>
+                <li><a href=""><img src="images/2.jpg" alt=""></a></li>
+                <li><a href=""><img src="images/1.jpg" alt=""></a></li>
+            </ul>
+
+            <div class="square">
+                <span class="current">1</span>
+                <span>2</span>
+                <span>3</span>
+                <span>4</span>
+                <span>5</span>
+            </div>
+
+            <div id="foucs">
+                <span id="left">&lt;</span><span id="right">&gt;</span>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        var box = document.getElementById('box');
+        var inner = box.children[0];
+        var imgWidth = inner.offsetWidth;
+        var ulObj = inner.children[0];
+        var spanObj = inner.children[1].children;
+
+        //右下角的按钮
+        for (var i = 0; i < spanObj.length; i++) {
+            spanObj[i].setAttribute("index", i);
+            spanObj[i].onclick = function () {
+                for (var j = 0; j < spanObj.length; j++) {
+                    spanObj[j].removeAttribute("class");
+                }
+                this.className = "current";
+                var index = this.getAttribute("index");
+                //每个图片的宽*鼠标点击按钮的索引值
+                animate(ulObj, -index * imgWidth);
+            }
+        }
+        //右下角的按钮结束
+
+        // 左右箭头开始
+        var foucs = document.getElementById("foucs");
+        inner.onmouseover = function () {
+            foucs.style.display = "block";
+        }
+        inner.onmouseout = function () {
+            foucs.style.display = "none";
+        }
+        var index = 0;
+        document.getElementById("right").onclick = function () {
+            if (index < ulObj.children.length - 1) {
+                index++;
+                animate(ulObj, -index * imgWidth);
+            }
+        }
+        document.getElementById("left").onclick = function () {
+            if (index > 0) {
+                index--;
+                animate(ulObj, -index * imgWidth);
+            }
+        }
+        // 左右箭头结束
+
+        //自动播放
+        var current = 0;
+
+        function auto() {
+            current -= 10;
+            if (current < -4 * imgWidth) {
+                ulObj.style.left = 0 + "px";
+                current = 0;
+            } else {
+                ulObj.style.left = current + "px";
+            }
+        }
+        var time = setInterval(auto, 20);
+        inner.onmouseover = function () {
+            clearInterval(time);
+        }
+        inner.onmouseout = function () {
+            time = setInterval(auto, 20);
+        }
+        //自动播放结束
+
+        //封装的动画函数
+        function animate(element, target) {
+            clearInterval(element.timeId);
+            element.timeId = setInterval(function () {
+                //获取元素当前的位置，数字类型
+                var current = element.offsetLeft;
+                //每次移动的距离
+                var step = 10;
+                step = current < target ? step : -step;
+                //当前移动到位置
+                current += step;
+                if (Math.abs(current - target) > Math.abs(step)) {
+                    element.style.left = current + "px";
+                } else {
+                    //清理定时器
+                    clearInterval(element.timeId);
+                    element.style.left = target + "px";
+                }
+            }, 20);
+        }
+    </script>
+</body>
+
+</html>

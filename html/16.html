@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul {
+            list-style: none;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .box {
+
+            height: 280px;
+            margin: 300px auto;
+        }
+
+        .inner {
+            width: 400px;
+            height: 280px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .inner ul {
+            display: flex;
+            position: absolute;
+        }
+
+        .inner ul li a img {
+            width: 400px;
+            height: 280px;
+        }
+
+        .square {
+            position: absolute;
+            right: 0px;
+            bottom: 0px;
+        }
+
+        .square span {
+            padding: 5px;
+            background-color: coral;
+        }
+
+        .current {
+            color: aqua;
+        }
+
+        #foucs {
+            position: absolute;
+            top: 45%;
+            width: 100%;
+            display: none;
+        }
+
+        #foucs span {
+            position: absolute;
+            background-color: #ffffff;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        #right {
+            right: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="box">
+        <div class="inner">
+            <ul>
+                <li><a href=""><img src="images/1.jpg" alt=""></a></li>
+                <li><a href=""><img src="images/2.jpg" alt=""></a></li>
+                <li><a href=""><img src="images/3.jpg" alt=""></a></li>
+                <li><a href=""><img src="images/2.jpg" alt=""></a></li>
+                <li><a href=""><img src="images/1.jpg" alt=""></a></li>
+            </ul>
+
+            <div class="square">
+
+            </div>
+
+            <div id="foucs">
+                <span id="left">&lt;</span><span id="right">&gt;</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        //获取所有元素
+        var box = document.getElementById('box');
+        var inner = box.children[0];
+        var imgWidth = inner.offsetWidth;
+        var ulObj = inner.children[0];
+        var list = ulObj.children;
+        var divObj = inner.children[1];
+        var foucs = document.getElementById("foucs");
+
+        //创建小按钮
+        for (var i = 0; i < list.length; i++) {
+            var spanObj = document.createElement("span");
+            divObj.appendChild(spanObj);
+            spanObj.innerHTML = (i + 1);
+        }
+    </script>
+</body>
+
+</html>
