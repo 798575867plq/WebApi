@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>offset系列</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #a1 {
+            width: 200px;
+            height: 120px;
+            background-color: red;
+        }
+
+        #a2 {
+            width: 100px;
+            height: 50px;
+            background-color: blue;
+        }
+
+        #img {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="a1">
+        <div id="a2">
+
+        </div>
+    </div>
+
+    <input type="button" value="offset" id="btn1">
+
+    <img src="images/1.jpg" id="img">
+
+    <script>
+        document.getElementById("btn1").onclick = function () {
+            console.log(document.getElementById("a1").offsetWidth); //获取元素的宽
+            console.log(document.getElementById("a1").offsetHeight); //获取元素的高
+            console.log(document.getElementById("a1").offsetLeft); //获取元素距离左边的距离
+            console.log(document.getElementById("a1").offsetTop); //获取元素距离上面的距离
+
+            // 子级元素的：如果没有脱离文档流-----offsetLeft:父级元素的margin+父级元素的padding+父级元素的border+自己的margin
+            //            如果脱离文档流---------offsetLeft:主要是自己的left和自己的margin
+        }
+
+        //直接通过document获取元素
+        console.log(document.body); //获取的是body元素--标签
+        console.log(document.title); //获取的是title标签中的值
+        console.log(document.documentElement); //获取的是html
+
+        //图片跟着鼠标移动
+        document.onmousemove = function (e) {
+            document.getElementById("img").style.left = e.clientX + "px";//可视区域的横坐标：clientX
+            document.getElementById("img").style.top = e.clientY + "px";//可视区域的纵坐标：clientY
+        }
+    </script>
+
+</body>
+
+</html>

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>轮播图完整版</title>
     <style>
         ul {
             list-style: none;
@@ -14,9 +14,7 @@
         }
 
         .box {
-
             height: 280px;
-            margin: 300px auto;
         }
 
         .inner {
@@ -24,6 +22,7 @@
             height: 280px;
             overflow: hidden;
             position: relative;
+            margin: 300px auto;
         }
 
         .inner ul {
@@ -44,6 +43,7 @@
 
         .square span {
             padding: 5px;
+            margin: 5px;
             background-color: coral;
         }
 
@@ -78,8 +78,8 @@
                 <li><a href=""><img src="images/1.jpg" alt=""></a></li>
                 <li><a href=""><img src="images/2.jpg" alt=""></a></li>
                 <li><a href=""><img src="images/3.jpg" alt=""></a></li>
-                <li><a href=""><img src="images/2.jpg" alt=""></a></li>
-                <li><a href=""><img src="images/1.jpg" alt=""></a></li>
+                <li><a href=""><img src="images/4.jpg" alt=""></a></li>
+                <li><a href=""><img src="images/5.png" alt=""></a></li>
             </ul>
 
             <div class="square">
@@ -101,12 +101,99 @@
         var list = ulObj.children;
         var divObj = inner.children[1];
         var foucs = document.getElementById("foucs");
+        var left = document.getElementById("left");
+        var right = document.getElementById("right");
+        var pic = 0;
 
         //创建小按钮
         for (var i = 0; i < list.length; i++) {
             var spanObj = document.createElement("span");
             divObj.appendChild(spanObj);
             spanObj.innerHTML = (i + 1);
+            //设置索引值
+            spanObj.setAttribute("index", i);
+            spanObj.onclick = function () {
+                for (var j = 0; j < divObj.children.length; j++) {
+                    divObj.children[j].removeAttribute("class");
+                }
+                this.className = "current";
+                pic = this.getAttribute("index");
+                //每个图片的宽*鼠标点击按钮的索引值
+                animate(ulObj, -pic * imgWidth);
+            }
+        }
+        //设置第一个按钮的默认样式
+        divObj.children[0].className = "current";
+
+        //克隆ul第一个li追加到最后一个li
+        ulObj.appendChild(ulObj.children[0].cloneNode(true));
+
+        //自动播放
+        var timeId = setInterval(clickHandle, 1000);
+
+        //左右箭头显示隐藏
+        inner.onmouseover = function () {
+            foucs.style.display = "block";
+            clearInterval(timeId);
+        }
+        inner.onmouseout = function () {
+            foucs.style.display = "none";
+            timeId = setInterval(clickHandle, 1000);
+        }
+        //右边箭头
+        right.onclick = clickHandle;
+
+        function clickHandle() {
+            if (pic == list.length - 1) {
+                pic = 0;
+                ulObj.style.left = 0 + "px";
+            }
+            pic++;
+            animate(ulObj, -pic * imgWidth);
+            //如果pic=5，那么就是第6张图（显示第一张图的内容），第一个按钮应该变样式
+            if (pic == list.length - 1) {
+                divObj.children[divObj.children.length - 1].className = "";
+                divObj.children[0].className = "current";
+            } else {
+                for (var i = 0; i < divObj.children.length; i++) {
+                    divObj.children[i].removeAttribute("class");
+                }
+                divObj.children[pic].className = "current";
+            }
+        }
+        //左边箭头
+        left.onclick = function () {
+            if (pic == 0) {
+                pic = 5;
+                ulObj.style.left = -pic * imgWidth + "px";
+            }
+            pic--;
+            animate(ulObj, -pic * imgWidth);
+            for (var i = 0; i < divObj.children.length; i++) {
+                divObj.children[i].removeAttribute("class");
+            }
+            divObj.children[pic].className = "current";
+        }
+
+        //封装的动画函数
+        function animate(element, target) {
+            clearInterval(element.timeId);
+            element.timeId = setInterval(function () {
+                //获取元素当前的位置，数字类型
+                var current = element.offsetLeft;
+                //每次移动的距离
+                var step = 10;
+                step = current < target ? step : -step;
+                //当前移动到位置
+                current += step;
+                if (Math.abs(current - target) > Math.abs(step)) {
+                    element.style.left = current + "px";
+                } else {
+                    //清理定时器
+                    clearInterval(element.timeId);
+                    element.style.left = target + "px";
+                }
+            }, 20);
         }
     </script>
 </body>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        body {
+            height: 2000px;
+        }
+
+        #a1 {
+            width: 150px;
+            height: 100px;
+            border: 2px solid red;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="a1">
+        哈哈哈哈哈哈哈哈哈哈或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或哈哈哈哈哈哈哈哈哈
+    </div>
+
+    <input type="button" id="btn1" value="scroll系列">
+    <script>
+        // scroll系列
+        document.getElementById("btn1").onclick = function () {
+            console.log(document.getElementById("a1").scrollWidth); //元素中内容的实际宽（没有边框），如果没有内容就是元素的宽
+            console.log(document.getElementById("a1").scrollHeight); //元素中内容的实际高（没有边框），如果没有内容就是元素的高
+            console.log(document.getElementById("a1").scrollTop); //向上卷曲出去的距离
+            console.log(document.getElementById("a1").scrollLeft); //向左卷曲出去的距离
+        }
+
+        //div滚动事件
+        document.getElementById("a1").onscroll = function () {
+            console.log(this.scrollTop);
+        }
+
+
+        function getScroll() {
+            return {
+                left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+                top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+            }
+        }
+
+        window.onscroll = function () {
+            console.log(getScroll().top);
+        }
+    </script>
+</body>
+
+</html>

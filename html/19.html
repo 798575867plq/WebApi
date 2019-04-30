@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>固定导航栏</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .top {
+            height: 300px;
+            width: 100%;
+            border: 2px solid red;
+        }
+
+        .nav {
+            border: 2px solid blue;
+            height: 200px;
+            width: 100%;
+        }
+
+        .main {
+            border: 2px solid yellow;
+            height: 1000px;
+            width: 100%;
+        }
+
+        .fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top" id="top">
+        12
+    </div>
+    <div class="nav" id="nav">
+        2323
+    </div>
+    <div class="main" id="main">
+        4343
+    </div>
+
+    <script>
+        function getScroll() {
+            return {
+                left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+                top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+            }
+        }
+
+        window.onscroll = function () {
+            if (getScroll().top >= document.getElementById("top").offsetHeight) {
+                document.getElementById("nav").className = "nav fixed";
+                document.getElementById("main").style.marginTop = document.getElementById("nav")
+                    .offsetHeight + "px";
+            } else {
+                document.getElementById("nav").className = "nav";
+                document.getElementById("main").style.marginTop = 0 + "px";
+            }
+        }
+    </script>
+</body>
+
+</html>
