@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>封装变速动画</title>
+    <style>
+        #a1 {
+            background: aqua;
+            width: 200px;
+            height: 100px;
+            position: absolute;
+            margin-top: 20px;
+        }
+
+        #nav {
+            margin-top: 200px;
+        }
+
+        #nav ul {
+            display: flex;
+            list-style: none;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        #nav ul li {
+            padding: 10px;
+        }
+
+        #cloud {
+            background-color: lightgreen;
+            position: absolute;
+            width: 5%;
+            height: 40px;
+            z-index: -10;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input type="button" value="移动到400px" id="btn1">
+        <input type="button" value="移动到800px" id="btn2">
+        <input type="button" value="任意属性" id="btn3">
+    </div>
+    <div id="a1">
+
+    </div>
+
+    <div id="nav">
+        <span id="cloud"></span>
+        <ul id="navbar">
+            <li>导航栏</li>
+            <li>导航栏</li>
+            <li>导航栏</li>
+            <li>导航栏</li>
+            <li>导航栏</li>
+            <li>导航栏</li>
+            <li>导航栏</li>
+        </ul>
+    </div>
+
+
+    <script>
+        document.getElementById("btn1").onclick = function () {
+            animate(document.getElementById("a1"), 400);
+            //getComputedStyle获取元素计算后的样式属性值
+            console.log(window.getComputedStyle(document.getElementById("a1"), null).width);
+        }
+        document.getElementById("btn2").onclick = function () {
+            animate(document.getElementById("a1"), 800);
+        }
+        document.getElementById("btn3").onclick = function () {
+            animate1(document.getElementById("a1"), "width", 500);
+        }
+
+        // 封装变速动画
+        function animate(element, target) {
+            clearInterval(element.timeId);
+            element.timeId = setInterval(function () {
+                var current = element.offsetLeft;
+                var step = (target - current) / 10;
+                //ceil:向上取整，floor:向下取整
+                step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                current += step;
+                element.style.left = current + "px";
+                if (current == target) {
+                    clearInterval(element.timeId);
+                }
+                console.log("当前位置：" + current + "目标位置：" + target + "每次移动：" + step);
+            }, 20);
+        }
+
+        //一个元素的任意样式属性值，attr是属性名字
+        function getStyle(element, attr) {
+            return window.getComputedStyle(element, null)[attr];
+        }
+
+        // 封装变速动画增加任意一个属性
+        function animate1(element, attr, target) {
+            clearInterval(element.timeId);
+            element.timeId = setInterval(function () {
+                var current = parseInt(getStyle(element, attr));
+                var step = (target - current) / 10;
+                //ceil:向上取整，floor:向下取整
+                step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                current += step;
+                element.style[attr] = current + "px";
+                if (current == target) {
+                    clearInterval(element.timeId);
+                }
+                console.log("当前位置：" + current + "目标位置：" + target + "每次移动：" + step);
+            }, 20);
+        }
+
+        // 封装变速动画增加任意多个属性
+        function animateMore(element, json) {
+            clearInterval(element.timeId);
+            element.timeId = setInterval(function () {
+                var current = parseInt(getStyle(element, attr));
+                var step = (target - current) / 10;
+                //ceil:向上取整，floor:向下取整
+                step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                current += step;
+                element.style[attr] = current + "px";
+                if (current == target) {
+                    clearInterval(element.timeId);
+                }
+                console.log("当前位置：" + current + "目标位置：" + target + "每次移动：" + step);
+            }, 20);
+        }
+
+
+        //筋斗云案例（导航栏）
+        var cloud = document.getElementById("cloud");
+        var navbar = document.getElementById("navbar");
+        var list = navbar.children;
+
+        for (var i = 0; i < list.length; i++) {
+            list[i].onmouseover = mouseoverHandle;
+            list[i].onclick = clickHandle;
+            list[i].onmouseout = mouseoutHandle;
+        }
+
+        function mouseoverHandle() {
+            animate(cloud, this.offsetLeft);
+        }
+
+        var lastPosition = 0;
+
+        function clickHandle() {
+            lastPosition = this.offsetLeft;
+        }
+
+        function mouseoutHandle() {
+            animate(cloud, lastPosition);
+        }
+    </script>
+</body>
+
+</html>
