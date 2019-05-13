@@ -44,7 +44,10 @@
     <div>
         <input type="button" value="移动到400px" id="btn1">
         <input type="button" value="移动到800px" id="btn2">
-        <input type="button" value="任意属性" id="btn3">
+        <input type="button" value="任意一个属性" id="btn3">
+        <input type="button" value="任意多个属性" id="btn4">
+        <input type="button" value="任意多个属性和回调函数" id="btn5">
+        <input type="button" value="任意多个属性和回调函数和层级和透明度" id="btn6">
     </div>
     <div id="a1">
 
@@ -74,7 +77,50 @@
             animate(document.getElementById("a1"), 800);
         }
         document.getElementById("btn3").onclick = function () {
-            animate1(document.getElementById("a1"), "width", 500);
+            animate1(document.getElementById("a1"), "width", 900);
+        }
+        document.getElementById("btn4").onclick = function () {
+            animateMore(document.getElementById("a1"), {
+                "width": 500,
+                "height": 200,
+                "top": 600
+            });
+        }
+
+        document.getElementById("btn5").onclick = function () {
+            var json1 = {
+                "width": 500,
+                "height": 200,
+                "top": 600,
+                "left": 300
+            };
+            animateMoreFn(document.getElementById("a1"), json1, function () {
+                var json2 = {
+                    "width": 50,
+                    "height": 20,
+                    "top": 60,
+                    "left": 30
+                };
+                animateMoreFn(document.getElementById("a1"), json2, function () {
+                    var json3 = {
+                        "width": 500,
+                        "height": 200,
+                        "top": 600,
+                        "left": 300
+                    };
+                    animateMoreFn(document.getElementById("a1"), json3);
+                })
+            });
+        }
+
+        document.getElementById("btn6").onclick = function () {
+            animateMoreFnO(document.getElementById("a1"), {
+                "width": 500,
+                "height": 200,
+                "top": 600,
+                "zIndex": 100,
+                "opacity": 0.2
+            });
         }
 
         // 封装变速动画
@@ -120,19 +166,94 @@
         function animateMore(element, json) {
             clearInterval(element.timeId);
             element.timeId = setInterval(function () {
-                var current = parseInt(getStyle(element, attr));
-                var step = (target - current) / 10;
-                //ceil:向上取整，floor:向下取整
-                step = step > 0 ? Math.ceil(step) : Math.floor(step);
-                current += step;
-                element.style[attr] = current + "px";
-                if (current == target) {
+                var flag = true;
+                for (var attr in json) {
+                    var current = parseInt(getStyle(element, attr));
+                    var target = json[attr];
+                    var step = (target - current) / 10;
+                    //ceil:向上取整，floor:向下取整
+                    step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                    current += step;
+                    element.style[attr] = current + "px";
+                    if (current != target) {
+                        flag = false;
+                    }
+                }
+                if (flag) {
                     clearInterval(element.timeId);
                 }
                 console.log("当前位置：" + current + "目标位置：" + target + "每次移动：" + step);
             }, 20);
         }
 
+        // 封装变速动画增加任意多个属性和回调函数
+        function animateMoreFn(element, json, fn) {
+            clearInterval(element.timeId);
+            element.timeId = setInterval(function () {
+                var flag = true;
+                for (var attr in json) {
+                    var current = parseInt(getStyle(element, attr));
+                    var target = json[attr];
+                    var step = (target - current) / 10;
+                    //ceil:向上取整，floor:向下取整
+                    step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                    current += step;
+                    element.style[attr] = current + "px";
+                    if (current != target) {
+                        flag = false;
+                    }
+                }
+                if (flag) {
+                    clearInterval(element.timeId);
+                    //所有的属性全部到达目标才能使用这个函数，前提是用户传入的这个函数
+                    if (fn) {
+                        fn();
+                    }
+                }
+                console.log("当前位置：" + current + "目标位置：" + target + "每次移动：" + step);
+            }, 20);
+        }
+
+        // 封装变速动画增加任意多个属性和回调函数和层级和透明度
+        function animateMoreFnO(element, json, fn) {
+            clearInterval(element.timeId);
+            element.timeId = setInterval(function () {
+                var flag = true;
+                for (var attr in json) {
+                    if (attr == "opacity") {
+                        //将当前的透明度放大100倍
+                        var current = getStyle(element, attr) * 100;
+                        //目标的透明度放大100倍
+                        var target = json[attr] * 100;
+                        var step = (target - current) / 10;
+                        step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                        current += step;
+                        element.style[attr] = current / 100;
+                    } else if (attr == "zIndex") {
+                        element.style[attr] = json[attr];
+                    } else {
+                        var current = parseInt(getStyle(element, attr));
+                        var target = json[attr];
+                        var step = (target - current) / 10;
+                        //ceil:向上取整，floor:向下取整
+                        step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                        current += step;
+                        element.style[attr] = current + "px";
+                    }
+                    if (current != target) {
+                        flag = false;
+                    }
+                }
+                if (flag) {
+                    clearInterval(element.timeId);
+                    //所有的属性全部到达目标才能使用这个函数，前提是用户传入的这个函数
+                    if (fn) {
+                        fn();
+                    }
+                }
+                console.log("当前位置：" + current + "目标位置：" + target + "每次移动：" + step);
+            }, 20);
+        }
 
         //筋斗云案例（导航栏）
         var cloud = document.getElementById("cloud");
