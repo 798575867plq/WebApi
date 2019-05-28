@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片跟着鼠标飞</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        img {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+
+    <img src="images/1.jpg" alt="" id="a1">
+
+    <script>
+
+        var evt = {
+            getEvent: function (evt) {
+                return window.event || evt;
+            },
+            getClientX: function (evt) {
+                return this.getEvent(evt).clientX;
+            },
+            getClientY: function (evt) {
+                return this.getEvent(evt).clientY;
+            },
+            getScrollLeft: function () {
+                return window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft ||
+                    0;
+            },
+            getScrollTop: function () {
+                return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+            },
+            //相对于页面的横坐标
+            getPageX: function (evt) {
+                return this.getClientX(evt) + this.getScrollLeft();
+            },
+            //相对于页面的纵坐标
+            getPageY: function (evt) {
+                return this.getClientY(evt) + this.getScrollTop();
+            }
+        }
+
+        document.onmousemove = function (e) {
+            e = window.event || e;
+            document.getElementById("a1").style.left = evt.getPageX(e) + "px";
+            document.getElementById("a1").style.top = evt.getPageY(e) + "px";
+        }
+    </script>
+</body>
+
+</html>
