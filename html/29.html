@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">大量拼接字符串</button><br>
+    <input type="text"><br>
+    <input type="text"><br>
+    <input type="text"><br>
+    <input type="text"><br>
+    <input type="text"><br>
+
+    <script>
+        //推荐使用数组的方式拼接大量的字符串
+        document.getElementById("btn").onclick = function () {
+            var str = [];
+            var inputs = document.getElementsByTagName("input");
+            for (var i = 0; i < inputs.length; i++) {
+                str.push(inputs[i].value);
+            }
+            console.log(str.join("|")); //字符串
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        #a1 {
+            background-color: red;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">隐藏</button>
+    <div id="a1">
+
+    </div>哈哈哈
+
+    <script>
+        document.getElementById("btn").onclick = function () {
+            //不占位
+            document.getElementById("a1").style.display = "none";
+            //以下都占位
+            //document.getElementById("a1").style.opacity = 0;
+            // document.getElementById("a1").style.visibility = "hidden";
+            //document.getElementById("a1").style.height = "0px";
+        }
+    </script>
+</body>
+
+</html>

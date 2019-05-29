@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>滚动条案例</title>
+
+    <style>
+        .box {
+            border: 1px solid #666;
+            width: 150px;
+            height: 300px;
+            overflow: hidden;
+            margin: 200px auto;
+            position: relative;
+            padding-right: 30px;
+        }
+
+        .scroll {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            width: 20px;
+            height: 100%;
+            background-color: #999;
+        }
+
+        .bar {
+            height: 100px;
+            width: 100%;
+            background-color: red;
+            border-radius: 10px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box" class="box">
+        <div class="content" id="content">
+            哈哈哈哈哈哈哈哈哈哈或或或或或或或或或或或或或或或或或或或或或或或或或哈哈哈哈哈哈哈哈哈哈哈或或或或或或或或或或或或或或或或或或或或或或或或或哈哈哈哈哈哈哈哈哈哈或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或小撒啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊或或或或或或或或或或或或或或或或或或或或或或或或或或或或或小撒啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊哈哈哈哈哈哈哈哈哈或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或小撒啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊或或或或或或或或或或或或或或或或或或或或或或或或或或或或或小撒啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+        </div>
+        <div class="scroll" id="scroll">
+            <div class="bar" id="bar"></div>
+        </div>
+    </div>
+
+    <script>
+        var box = document.getElementById("box");
+        var content = document.getElementById("content");
+        var scroll = document.getElementById("scroll");
+        var bar = document.getElementById("bar");
+
+        //设置滚动条的高度
+        var height = scroll.offsetHeight * box.offsetHeight / content.offsetHeight;
+        bar.style.height = height + "px";
+
+        //移动滚动条
+        bar.onmousedown = function (e) {
+            var spaceY = e.clientY - bar.offsetTop;
+            document.onmousemove = function (e) {
+                var y = e.clientY - spaceY;
+                y = y < 0 ? 0 : y;
+                y = y > scroll.offsetHeight - bar.offsetHeight ? scroll.offsetHeight - bar.offsetHeight : y;
+                bar.style.top = y + "px";
+                //设置鼠标移动的时候，文字不被选中
+                window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+                //文字div移动的距离=滚动条移动的距离*文字div的最大移动距离/滚动条最大移动距离
+                var moveY = y * (content.offsetHeight - box.offsetHeight) / (scroll.offsetHeight - bar
+                    .offsetHeight);
+                //设置文字div的移动距离
+                content.style.marginTop = -moveY + "px";
+            }
+        }
+
+        document.onmouseup = function () {
+            document.onmousemove = null;
+        }
+    </script>
+</body>
+
+</html>
